@@ -1,3 +1,4 @@
+# Stack implemented using array as internal data structure
 class Stack
   
   def initialize

@@ -1,3 +1,4 @@
+# Simple one direction linked list
 class LinkedList
 
   class Node

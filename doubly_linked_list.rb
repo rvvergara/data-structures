@@ -1,3 +1,4 @@
+# Linked List wherein each node has reference to its previous node and next node
 class LinkedList
   attr_accessor :head,:data,:next, :length
   def initialize(data = nil)

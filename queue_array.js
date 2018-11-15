@@ -1,3 +1,4 @@
+// Queue implemented using array as an internal data structure
 class Queue {
   constructor() {
     this.array = new Array;

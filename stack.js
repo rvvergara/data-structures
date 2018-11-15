@@ -1,3 +1,4 @@
+// Stack implemented using linked list as internal data structure
 require './singlyLinkedList.js';
 
 class Stack {
@@ -13,12 +14,14 @@ class Stack {
 }
 
 const stack = new Stack,
-      input = [3,5,-1,-1,2,7,11,-1,-1];
+  input = [3, 5, -1, -1, 2, 7, 11, -1, -1];
 
-function do_stuff(arr){
-  let [temp, output] = [[],""];
+function do_stuff(arr) {
+  let [temp, output] = [
+    [], ""
+  ];
 
-  arr.forEach( v => v === -1 ? output += " " + temp.pop() : temp.push(v));
+  arr.forEach(v => v === -1 ? output += " " + temp.pop() : temp.push(v));
 
   return output;
 }

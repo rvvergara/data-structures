@@ -1,3 +1,5 @@
+// Linked List wherein each node has reference to its previous node and next node
+
 class LinkedList {
   constructor(data = null) {
     this.prev = null;

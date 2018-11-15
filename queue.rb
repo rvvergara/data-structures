@@ -1,3 +1,4 @@
+# Queue implemented using linked list as internal data structure
 require_relative 'singly_linked_list'
 
 class Queue

@@ -1,3 +1,4 @@
+// Queue implemented using linked list as internal data structure
 require './singlyLinkedList.js';
 
 class Queue {

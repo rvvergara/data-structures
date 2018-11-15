@@ -4,7 +4,7 @@ class Node {
     this.next = null;
   }
 }
-
+// Simple one direction linked list
 class LinkedList {
   constructor(data) {
     this.head = null;
@@ -14,11 +14,11 @@ class LinkedList {
 
   commit(data) {
     const newNode = new Node(data);
-    this.head === null
-      ? undefined
-      : this.head.data === null
-      ? undefined
-      : (newNode.next = this.head);
+    this.head === null ?
+      undefined :
+      this.head.data === null ?
+      undefined :
+      (newNode.next = this.head);
     this.head = newNode;
     this.head.data === null ? undefined : this.length++;
     return this;
@@ -32,9 +32,9 @@ class LinkedList {
   }
 
   push(data) {
-    this.length === 0
-      ? (this.commit(data), this.length--)
-      : this.add_last(this.head, data, this.length);
+    this.length === 0 ?
+      (this.commit(data), this.length--) :
+      this.add_last(this.head, data, this.length);
     this.length++;
     return this;
   }
