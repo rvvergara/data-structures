@@ -1,52 +1,76 @@
-class LinkedList
-	#setup head and tail
-	attr_accessor :head, :tail
-	def initialize
-		@head = nil
-		@tail = nil
-	end
+# Ruby implementation of Binary Trees
+class BinaryTree
 
-  def add(number)
-	#your code here
-   if self.head.nil? 
-     self.head = number
-   else
-     if self.tail.nil?
-       self.tail = LinkedList.new
-       self.tail.head = number
-     else
-       self.tail.add(number)
-     end
-   end
+  attr_reader :left, :right, :data
+  def initialize(data)
+    @data = data
+    @left = nil
+    @right = nil
   end
-  
-  def get(index, n = 0)
-    #your code here
-    n == index ? self.head : self.tail.get(index, n + 1)
+
+  def add_left(data)
+    @left = data.class == BinaryTree ? data : BinaryTree.new(data)
+    self
+  end
+
+  def add_right(data)
+    @right = data.class == BinaryTree ? data : BinaryTree.new(data)
+    self
+  end
+
+  def post_order
+    output = @data.nil? ? "" : @data
+    left = @left.nil? ? "" : @left.post_order
+
+    right = @right.nil? ? "" : @right.post_order
+
+    left + right + output
+  end
+
+  def in_order
+    output = @data.nil? ? "" : @data
+    left = @left.nil? ? "" : @left.in_order
+    right = @right.nil? ? "" : @right.in_order
+    left + output + right
+  end
+
+  def pre_order
+    output = @data.nil? ? "" : @data
+    left = @left.nil? ? "" : @left.pre_order
+    right = @right.nil? ? "" : @right.pre_order
+    output + left + right
+  end
+
+  def breadth_first
+    self.bfs(self)
+  end
+
+  def bfs(node, queue = [node])
+    return "" if node.nil?
+    shifted = queue.shift
+    output = shifted.data.nil? ? "" : shifted.data
+    queue.push(node.left) if !node.left.nil?
+    queue.push(node.right) if !node.right.nil?
+    output + self.bfs(queue[0], queue)
   end
 
 end
 
+values = "FDJBEGKACIH".split("")
+tree = values.map {|value| BinaryTree.new(value)}
 
-def do_stuff(a, b)
-	if a == -9
-		@list.add(b)
-	elsif a == -6
-		puts @list.get(b)
-  end  
-end
+f, d, j, b, e, g, k, a, c, i, h = tree
 
-@list = LinkedList.new
+f.add_left(d).add_right(j);
+d.add_left(b).add_right(e);
+b.add_left(a).add_right(c);
+j.add_left(g).add_right(k);
+g.add_right(i);
+i.add_left(h);
 
-do_stuff(-9, 3)
-do_stuff(-6, 0)
-do_stuff(-9,5)
-do_stuff(-9,7)
-do_stuff(-6,1)
-do_stuff(-9,4)
-do_stuff(-6,3)
-do_stuff(-6,0)
-do_stuff(-9,12)
-do_stuff(-9,14)
-do_stuff(-6,2)
-do_stuff(-6,5)
+tree1 = f
+
+puts "Breadth-first: #{tree1.breadth_first}"
+puts "Pre-Order: #{tree1.pre_order}"
+puts "In-Order: #{tree1.in_order}"
+puts "Post-OrderL #{tree1.post_order}"

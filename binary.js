@@ -43,19 +43,20 @@ class BinaryTree {
   }
 }
 
-const values = "FDJBEGKACI".split(""),
+const values = "FDJBEGKACIH".split(""),
   tree = values.map(v => new BinaryTree(v)),
-  [f, d, j, b, e, g, k, a, c, i] = tree;
+  [f, d, j, b, e, g, k, a, c, i, h] = tree;
 
 f.addLeft(d).addRight(j);
 d.addLeft(b).addRight(e);
 b.addLeft(a).addRight(c);
 j.addLeft(g).addRight(k);
 g.addRight(i);
+i.addLeft(h);
 
 const tree1 = f;
 
-f.breadthFirst();
-f.preOrder();
-f.postOrder();
-f.inOrder();
+console.log("Breadth-First: ", f.breadthFirst());
+console.log("Pre-Order: ", f.preOrder());
+console.log("In-Order: ", f.inOrder());
+console.log("Post-Order: ", f.postOrder());
