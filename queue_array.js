@@ -8,8 +8,8 @@ class Queue {
     return this;
   }
   poll() {
-    if this.array.length === 0
-    return "Queue is empty"
+    if (this.array.length === 0)
+      return "Queue is empty"
     const data = this.array[0];
     this.array.shift();
     return data === undefined ? -1 : data;
