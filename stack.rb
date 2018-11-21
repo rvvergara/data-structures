@@ -28,6 +28,7 @@ class Stack
     else
       nil
     end
+    @size += 1
     self
   end
 
@@ -47,6 +48,7 @@ class Stack
     else
       nil
     end
+    @size -= 1
     popped
   end
 
