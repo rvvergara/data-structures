@@ -16,10 +16,12 @@ end
 k, input, input2, input3 = [3, [1, 3, 5, 7, 9, 2],[9, 7, 3, 0, -1, 11, 3], [2, 2, 3, 3, 7, 7, 2, 2, 3, 3]
 ]
 
+puts "Using array as internal data structure:\n "
 puts do_stuff(input, k)
 puts do_stuff(input2, k)
 puts do_stuff(input3, k)
 
+puts "\nUsing linked list as internal data structure:\n "
 puts do_stuff_list(input,k)
 puts do_stuff_list(input2,k)
 puts do_stuff_list(input3,k)
