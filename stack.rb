@@ -5,15 +5,57 @@ class Stack
   
   def initialize
     @list = LinkedList.new
+    @least = nil
+    @most = nil
+    @min_list = LinkedList.new
+    @max_list = LinkedList.new
+    @size = @list.length
   end
 
   def push(data)
     @list.push(data)
+    # Reassigning minimum
+    if @least.nil? || @min_list.head.nil? || data < @least 
+      @min_list.commit(data)
+      @least = data
+    else
+      nil
+    end
+    # Reassigning maximum
+    if @most.nil? || @max_list.head.nil? || data > @most 
+      @max_list.commit(data)
+      @most = data
+    else
+      nil
+    end
+    self
   end
 
   def pop
-    return "Stack is empty" if @list.length == 0
-    @list.pop
+    popped = @list.pop
+    # Reassign minimum when popping
+    if popped == @min_list.head.data
+      @min_list.reset
+      @least = @min_list.head.nil? ? nil : @min_list.head.data
+    else
+      nil
+    end
+    # Reassigning maximum when popping
+    if popped == @max_list.head.data
+      @max_list.reset
+      @most = @max_list.head.nil? ? nil : @max_list.head.data
+    else
+      nil
+    end
+    popped
+  end
+
+  def min
+    @least
+  end
+
+  def max
+    @most
   end
 
   def peek
@@ -32,7 +74,7 @@ input = [3,5,-1,-1,2,7,11,-1,-1]
 def do_stuff(arr)
   tmp, output = Stack.new, ""
   
-  arr.each { |el| el == -1 ?  output += " " + tmp.pop.to_s : tmp.push(el)}
+  arr.each { |el| el == -1 ?  output += tmp.pop.to_s + " ": tmp.push(el)}
 
   output
 end
