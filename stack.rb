@@ -2,7 +2,7 @@
 require_relative 'singly_linked_list'
 
 class Stack
-  
+  attr_reader :size
   def initialize
     @list = LinkedList.new
     @least = nil
@@ -81,4 +81,4 @@ def do_stuff(arr)
   output
 end
 
-puts do_stuff(input)
+# puts do_stuff(input)

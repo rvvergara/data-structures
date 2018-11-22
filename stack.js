@@ -30,6 +30,10 @@ class Stack {
   max() {
     return this.most;
   }
+
+  peek() {
+    return this.size === 0 ? "No data in the stack" : this.list.head.data;
+  }
 }
 
 const stack = new Stack,
