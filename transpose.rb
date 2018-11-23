@@ -7,7 +7,7 @@ def do_stuff(text)
   text.chars.each do |char|
     # T2 -> check if char is 'n'
     if char == "n"
-      # T3 -> if it is then push to temp eveytime the last element in stack is a 'g' this will ensure that the letter n will always be before 'g'
+      # T3 -> if it is then pop stack and push the popped item to temp eveytime the last element in stack is a 'g' this will ensure that the there won't be a 'g' immediately before 'n'. Temp will contain as many 'g's as long as 'n' cannot be pushed to the stack yet
       temp.push(stack.pop) until stack[-1] != "g"
       # T4 -> when all 'g' are gone from stack then push the letter 'n'
       stack.push(char)
