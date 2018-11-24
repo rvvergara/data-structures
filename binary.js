@@ -41,6 +41,11 @@ class BinaryTree {
     if (node.right !== null) queue.push(node.right);
     return output + this.bfs(queue[0], queue);
   }
+  height() {
+    let leftHeight = this.left === null ? 0 : this.left.height(),
+      rightHeight = this.right === null ? 0 : this.right.height();
+    return 1 + Math.max(leftHeight, rightHeight);
+  }
 }
 
 const values = "FDJBEGKACIH".split(""),
