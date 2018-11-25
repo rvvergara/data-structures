@@ -2,12 +2,12 @@ function do_stuff(arr) {
   let heights = [];
   for (let i = arr.length - 1; i >= 0; i--) {
     let height = arr[i] === 0 ? 0 : 1,
-      leftHt = heights[i] || 0,
-      rightHt = heights[i + 1] || 0;
+      leftHt = heights[heights.length - i - 1] || 0,
+      rightHt = heights[heights.length - i - 2] || 0;
     height += Math.max(leftHt, rightHt);
-    heights.unshift(height);
+    heights.push(height);
   }
-  return heights[0];
+  return heights[heights.length - 1];
 }
 
 let inputs = [
