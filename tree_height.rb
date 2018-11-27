@@ -3,32 +3,36 @@
 # node height = 1 + max(left height, right height)
 
 def do_stuff(arr)
-  # H0 : Declare heights array and iterate from last element of input array down to first element
+  # 0 -> Declare a heights array to store the heights of each node
   heights = []
-  (arr.size - 1).downto(0).each do |i|
-    # H1; if element is a zero then height is automatically zero, if not then it's 1
+  # 1 Traverse arr for each element starting from last element down to first
+  (arr.length - 1).downto(0).each do |i|
+    # 2. If element (arr[i]) is zero, set its initial height to 0, else set it to 1
     height = arr[i] == 0 ? 0 : 1
-    #H2 Find left child height of element inside heights (if already in it)  by finding the element equivalent to el's indexx
-    left_height = heights[i] || 0
-    # H3 Right height is the element at i + 1 index of heights
-    right_height = heights[i + 1] || 0
-    # H4 Add the maximum of left or right to height to come up with the total height of node
+    # 3. Index inside heights array of the height of the left child of the element is nil if arr[i] has no left child else it is equal to heights.length - i - 1
+    left_height_index = arr[2*i + 1].nil? ? nil : heights.length - i - 1
+    left_height = left_height_index.nil? ? 0 : heights[left_height_index]
+    # 4. Right height index (inside heights) is nil if arr[i] has no right child else it is equal to left_height_index - 1:
+    right_height_index = arr[2*i + 2].nil? ? nil : left_height_index - 1
+    right_height = right_height_index.nil? ? 0 : heights[right_height_index]
+    # 5. Add maximum of left height and right height to initial height to get arr[i]'s total height
     height += [left_height,right_height].max
-    # H5 Unshift heights array with the height in order to put the parent height before the children's heights
-    heights.unshift(height)
+    # 6. Push height into heights
+    heights.push(height)
   end
-  # H6 print out the height of the root as output
-  puts heights[0]
+  print heights
+  puts "\n"
 end
 
 inputs = [
   [2, 7, 5, 2, 6, 0, 9],
   [1, 7, 5, 2, 6, 0, 9, 3, 7, 5, 11, 0, 0, 4, 0],
   [5, 3, 2, 9, 0, 0, 7, 0, 0, 0, 0, 0, 0, 5, 0],
-  [1, 2, 3, 4, 0, 5, 6, 7, 8, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0]
+  [1, 2, 3, 4, 0, 5, 6, 7, 8, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0],[2,7,5,2,6,0,9,0,0,5,11,0,0,4,0]
 ]
 
 do_stuff(inputs[0])
 do_stuff(inputs[1])
 do_stuff(inputs[2])
 do_stuff(inputs[3])
+do_stuff(inputs[4])
