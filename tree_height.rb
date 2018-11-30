@@ -1,5 +1,5 @@
 # RyanV solution
-
+require 'benchmark'
 # node height = 1 + max(left height, right height)
 
 def do_stuff(arr)
@@ -37,3 +37,5 @@ do_stuff(inputs[1])
 do_stuff(inputs[2])
 do_stuff(inputs[3])
 do_stuff(inputs[4])
+
+puts Benchmark.measure { do_stuff(inputs[4])}
