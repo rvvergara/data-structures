@@ -1,4 +1,4 @@
-function do_stuff(arr) {
+function findHeight(arr) {
   // 0 Declare heights array that will store the heights of individual subtree (node)
   const heights = [];
   // 1 Iterate through the input array starting from last element down to first
@@ -18,7 +18,7 @@ function do_stuff(arr) {
     // 8 Push total height to heights array
     heights.push(totalHeight);
   }
-  console.log(heights);
+  console.log(heights[heights.length - 1]);
 }
 
 let inputs = [
@@ -61,8 +61,17 @@ let inputs = [
   [2, 7, 5, 2, 6, 0, 9, 0, 0, 5, 11, 0, 0, 4, 0]
 ];
 
-do_stuff(inputs[0]);
-do_stuff(inputs[1]);
-do_stuff(inputs[2]);
-do_stuff(inputs[3]);
-do_stuff(inputs[4]);
+// do_stuff(inputs[0]);
+// do_stuff(inputs[1]);
+// do_stuff(inputs[2]);
+// do_stuff(inputs[3]);
+// do_stuff(inputs[4]);
+
+// Function to log heights of inputs array
+function doStuff(arr) {
+  arr.forEach(v => console.log(findHeight(v)));
+}
+
+console.time("tree height computation - looping")
+doStuff(inputs);
+console.timeEnd("tree height computation - looping")

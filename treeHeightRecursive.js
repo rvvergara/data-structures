@@ -56,4 +56,6 @@ function doStuff(arr) {
   arr.forEach(v => console.log(findHeight(v)));
 }
 
+console.time("tree height computation - recursive")
 doStuff(inputs);
+console.timeEnd("tree height computation - recursive")
