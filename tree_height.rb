@@ -38,4 +38,4 @@ do_stuff(inputs[2])
 do_stuff(inputs[3])
 do_stuff(inputs[4])
 
-puts Benchmark.measure { do_stuff(inputs[4])}
+puts Benchmark.measure { do_stuff(inputs[1])}.total * 1000

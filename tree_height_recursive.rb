@@ -39,4 +39,4 @@ do_stuff(inputs[2])
 do_stuff(inputs[3])
 do_stuff(inputs[4])
 
-puts Benchmark.measure { find_height(inputs[4])}
+puts Benchmark.measure { find_height(inputs[1])}.total * 1000
