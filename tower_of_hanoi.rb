@@ -1,25 +1,20 @@
-def hanoi_tower(starting,goal)
+def hanoi_tower(starting, goal)
   output = ""
+  tower_keys = [starting, goal]
   temp = 0
-  tower_keys = [starting,goal]
-  towers = {}
-  
-  (1..3).to_a.each {|i| !tower_keys.include?(i) ? temp += i : nil}
-  tower_keys.push(temp)
-  
-  tower_keys.each {|key| towers[key] = key == goal ? ["b","a"] : []}
 
-  # 1. Check if towers[temp].empty? if yes then push towers[starting].pop
-  towers[temp].push(towers[starting].pop) if towers[temp].empty?
+  # Set temp
+  (1..3).to_a.each {|i| !tower_keys.include?(i) ? temp += i : nil }
+
+  # 1. Move from starting peg to temp peg
   output += "#{starting}->#{temp} "
 
-  # 2. Check if towers[goal].empty? if yes then push towers[starting].pop
-  towers[goal].push(towers[starting].pop) if towers[goal].empty?
+  # 2. Move from starting to goal peg
   output += "#{starting}->#{goal} "
 
-  # 3. towers[goal].push(towers[temp].pop)
-  towers[goal].push(towers[temp].pop)
+  # 3. Move from temp to goal
   output += "#{temp}->#{goal}"
+
   puts output
 end
 
