@@ -1,0 +1,11 @@
+letters =	["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o"]
+indices = 	[0,    1,   2,   3,   4,   5,   6,   7,   8,   9,   10,  11,  12,  13,  14]
+
+search for index of "e"(4)
+
+# 1. Initial start pt = arr[0], initial end = arr.length - 1
+# 2. Check if start > end ? if yes then return nil
+# 3. Else find midpt = ((start + end)/2).to)i
+# 4. If arr[midpt] == target then return midpt
+# 5. Else if arr[midpt] > target then call method again this time with start = start and end = end - 1
+# 6 Else if arr[midpt] < target then call method again this time with start = start + 1 and end = end until a terminal point is reached
