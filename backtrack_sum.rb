@@ -1,15 +1,15 @@
-def backtrack_sum(target, arr, left = 0, right = arr.sum)
+def backtrack_sum(target, arr, sum = 0)
   # Terminal states:
   # 1. Check if left == target if yes return true
-  return true if left == target
+  return true if sum == target
   # 2. Check if left > target if yes return false
-  return false if left > target
+  return false if sum > target
   # 3. Run method on a yes branch, meaning possibility of arr[0] included
   return false if arr.empty?
-  if backtrack_sum(target, arr.slice(1..-1), left + arr[0], right - arr[0])
+  if backtrack_sum(target, arr.slice(1..-1), sum + arr[0])
     return true
   else
-    backtrack_sum(target, arr.slice(1..-1),left, right)
+    backtrack_sum(target, arr.slice(1..-1),sum)
   end
 end
 
