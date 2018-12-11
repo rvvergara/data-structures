@@ -32,6 +32,18 @@ def post_order_array(tree)
   left + right + output
 end
 
+def breadth_first(subtree, queue = [subtree])
+  return " " if subtree.nil?
+  shifted = queue.shift
+  output = shifted.data.to_s + " "
+  
+  queue.push(subtree.left) if !subtree.left.nil?
+  
+  queue.push(subtree.right) if !subtree.right.nil?
+
+  output + breadth_first(queue[0], queue)
+end
+
 inputs = [
   [10, 1, 2, 3, 4, 5, 6],
   [2, 7, 5, 2, 6, 0, 9],
@@ -46,3 +58,5 @@ def do_stuff(ar)
 end
 
 inputs.each {|input| do_stuff(input)}
+
+# puts breadth_first(array_to_tree(inputs[0]))
