@@ -22,6 +22,16 @@ def array_to_tree arr, i = 0
   node
 end
 
+def pre_order_array(tree)
+  output = tree.nil? || tree.data == 0 ? "" : tree.data.to_s + " "
+  
+  left = tree.left.nil? ? "" : pre_order_array(tree.left)
+
+  right = tree.right.nil? ? "" : pre_order_array(tree.right)
+
+  output + left + right
+end
+
 def post_order_array(tree)
   output = tree.nil? || tree.data == 0 ? "" : tree.data.to_s + " "
   
@@ -30,6 +40,16 @@ def post_order_array(tree)
   right = tree.right.nil? ? "" : post_order_array(tree.right)
 
   left + right + output
+end
+
+def in_order_array(tree)
+  output = tree.nil? || tree.data == 0 ? "" : tree.data.to_s + " "
+  
+  left = tree.left.nil? ? "" : in_order_array(tree.left)
+
+  right = tree.right.nil? ? "" : in_order_array(tree.right)
+
+  left + output + right 
 end
 
 def breadth_first(subtree, queue = [subtree])
@@ -57,6 +77,6 @@ def do_stuff(ar)
   puts post_order_array(array_to_tree(ar))
 end
 
-inputs.each {|input| do_stuff(input)}
+# inputs.each {|input| do_stuff(input)}
 
 # puts breadth_first(array_to_tree(inputs[0]))
