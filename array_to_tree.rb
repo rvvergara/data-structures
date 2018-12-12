@@ -80,3 +80,5 @@ end
 # inputs.each {|input| do_stuff(input)}
 
 # puts breadth_first(array_to_tree(inputs[0]))
+
+puts pre_order_array(array_to_tree([5, 3, 7, 1, 2, 6, 8]))
