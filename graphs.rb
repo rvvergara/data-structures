@@ -85,6 +85,7 @@ inputs = ["2
 4 2"
 ]
 
+sanitized_inputs = inputs.map {|input| input_processing(input)}
 # puts visit(create_graph(input_processing(inputs[4]))[0],4).join(" ")
 # print create_graph(input_processing(input))[0].connections.map {|connection| connection.data}
 # print create_graph(input_processing(input))
@@ -95,7 +96,7 @@ inputs = ["2
 # puts node
 
 def do_stuff(arr)
-  print visit(create_graph(input_processing(arr))[0],4).join(" ") + "\n"
+  print visit(create_graph(arr)[0],4).join(" ") + "\n"
 end
 
-inputs.each {|input| do_stuff(input)}
+sanitized_inputs.each {|input| do_stuff(input)}
