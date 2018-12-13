@@ -10,7 +10,6 @@ end
 
 # Class to create a graph
 def create_graph(arr)
-  graph = []
   nodes = []
   (0...arr.size).each do |i|
     node = Node.new(i)
