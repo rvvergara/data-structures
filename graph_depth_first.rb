@@ -25,8 +25,6 @@ def input_processing(multi_line)
   multi_line.split("\n").map {|nums| nums.split.map {|str| str.to_i}}
 end
 
-
-
 def depth_first_graph(node, visited = [])
   if !visited.include? node
     visited.push(node)
@@ -73,9 +71,6 @@ inputs = [
   ]
   
 sanitized_inputs = inputs.map {|input| input_processing(input)}
-
-# print depth_first_graph(create_graph(sanitized_inputs[4])[0])
-# puts "\n"
 
 def do_stuff(arr)
   print depth_first_graph(create_graph(arr)[0])
