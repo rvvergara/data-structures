@@ -25,54 +25,61 @@ def input_processing(multi_line)
   multi_line.split("\n").map {|nums| nums.split.map {|str| str.to_i}}
 end
 
-def depth_first_graph(node)
-  output = node.nil? ? "" : node.data.to_s
 
-  node.connections.each do |connection|
-    output += depth_first_graph(connection)
+
+def depth_first_graph(node, visited = [])
+  if !visited.include? node
+    visited.push(node)
+    output = node.data.to_s + " "
+    output += node.connections.map do |connection|
+      depth_first_graph(connection, visited)
+    end.join("")
   end
-
   output
 end
 
-inputs = ["2
+inputs = [
+  "2
   4
   5 0 3
-  5 2
+  2
   1 5
-  4 2 3",
+  4 2",
   "1 2
-  2 0
-  3 0 1 4 5
-  4 2
+  0 2
+  0 1 3 4 5
+  2 4
   3 2
   2",
-  "1 6
-  2 0 3 4
-  3 1
-  6 1 2
-  1 5 6
-  4
-  4 3 0",
+  "1 2
+  0 3 4
+  0 5 6
+  1
+  1
+  2
+  2",
   "3
   2 3
   4 1
   1 0
   2",
-  "1 6
-  2 0 3 4
-  7 3 1
-  6 1 2
-  1 5 7
-  4 6
-  3 0 5
-  4 2"
+  "1 2
+  0 3 4
+  0 5 6
+  1
+  1 5
+  2 4
+  2"
   ]
   
-  sanitized_inputs = inputs.map {|input| input_processing(input)}
+sanitized_inputs = inputs.map {|input| input_processing(input)}
 
-  print sanitized_inputs
-  # print create_graph(sanitized_inputs[0])[0].connections[0].data
+# print depth_first_graph(create_graph(sanitized_inputs[4])[0])
+# puts "\n"
 
-  # print depth_first_graph(create_graph(sanitized_inputs[0])[0])
- puts "\n"
+def do_stuff(arr)
+  print depth_first_graph(create_graph(arr)[0])
+  puts "\n"
+end
+
+sanitized_inputs.each {|input| do_stuff(input)}
