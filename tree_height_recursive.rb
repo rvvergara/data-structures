@@ -11,7 +11,7 @@ def do_stuff(arr)
     heights.push(find_height(arr,i))
   end
   # puts heights[-1]
-  print heights
+  print heights[-1]
   puts "\n"
 end
 
@@ -30,13 +30,10 @@ inputs = [
   [2, 7, 5, 2, 6, 0, 9],
   [1, 7, 5, 2, 6, 0, 9, 3, 7, 5, 11, 0, 0, 4, 0],
   [5, 3, 2, 9, 0, 0, 7, 0, 0, 0, 0, 0, 0, 5, 0],
-  [1, 2, 3, 4, 0, 5, 6, 7, 8, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0],[2,7,5,2,6,0,9,0,0,5,11,0,0,4,0]
+  [1, 2, 3, 4, 0, 5, 6, 7, 8, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0],
+  # [2,7,5,2,6,0,9,0,0,5,11,0,0,4,0]
 ]
 
-do_stuff(inputs[0])
-do_stuff(inputs[1])
-do_stuff(inputs[2])
-do_stuff(inputs[3])
-do_stuff(inputs[4])
+inputs.each {|input| do_stuff(input)}
 
-puts Benchmark.measure { find_height(inputs[1])}.total * 1000
+# puts Benchmark.measure { find_height(inputs[1])}.total * 1000

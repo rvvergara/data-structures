@@ -1,7 +1,7 @@
 # Ruby implementation of Binary Trees
 class BinaryTree
 
-  attr_reader :left, :right, :data
+  attr_reader :left, :right, :data, :height
   def initialize(data)
     @data = data
     @left = nil
@@ -54,6 +54,12 @@ class BinaryTree
     output + self.bfs(queue[0], queue)
   end
 
+  def height
+    left_height = @left.nil? ? 0 : @left.height
+    right_height = @left.nil? ? 0 : @right.height
+    1 + [left_height,right_height].max
+  end
+
 end
 
 values = "FDJBEGKACIH".split("")
@@ -74,3 +80,4 @@ puts "Breadth-first: #{tree1.breadth_first}"
 puts "Pre-Order: #{tree1.pre_order}"
 puts "In-Order: #{tree1.in_order}"
 puts "Post-OrderL #{tree1.post_order}"
+puts tree1.height
