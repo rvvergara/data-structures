@@ -2,7 +2,7 @@
 require 'benchmark'
 # node height = 1 + max(left height, right height)
 
-def do_stuff(arr)
+def do_stuff1(arr)
   # d0 Heights array to store heights
   heights = []
   # d1 Iterate from last element of input array down to first element
@@ -26,11 +26,16 @@ def find_height(arr, index = 0)
   total_height = 1 + [left_child_height,right_child_height].max
 end
 
+def do_stuff(ar)
+  puts find_height(ar)
+end
+
+
 inputs = [
   [2, 7, 5, 2, 6, 0, 9],
   [1, 7, 5, 2, 6, 0, 9, 3, 7, 5, 11, 0, 0, 4, 0],
   [5, 3, 2, 9, 0, 0, 7, 0, 0, 0, 0, 0, 0, 5, 0],
-  [1, 2, 3, 4, 0, 5, 6, 7, 8, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0],
+  # [1, 2, 3, 4, 0, 5, 6, 7, 8, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0],
   # [2,7,5,2,6,0,9,0,0,5,11,0,0,4,0]
 ]
 
