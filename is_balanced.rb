@@ -9,6 +9,7 @@ def find_height(arr, index = 0)
   total_height = 1 + [left_child_height,right_child_height].max
 end
 
+# Binary tree is balanced if difference in left_ht and right_ht is at most 1, and both left and right are balanced
 def is_balanced(tree, index = 0)
   return true if tree[index].nil? || tree[index] == 0
   (find_height(tree, 2*index + 1) - find_height(tree, 2*index + 2)).abs <= 1 && is_balanced(tree, 2*index + 1) && is_balanced(tree, 2*index +2)
