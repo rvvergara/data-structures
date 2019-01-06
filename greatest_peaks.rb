@@ -1,41 +1,83 @@
 # Node class connected to up down left right
-class Node
+class Cell
   attr_reader :data
-  attr_accessor :surroundings
+  attr_accessor :surroundings, :belongs_to
   def initialize data = nil
     @data = data
     @surroundings = []
+    @belongs_to = nil
   end
 end
 
 # Method to create graph
 def create_graph(grid)
-  nodes = []
-  
-  grid.each_with_index do |row, i|
-    row.each_with_index do |el, j|
-      node = Node.new(el)
-      i == 0 ? node.surroundings.push(0) : node.surroundings.push(grid[i-1][j])
-      j == 0 ? node.surroundings.push(0) : node.surroundings.push(grid[i][j-1])
-      i == grid.length - 1 ? node.surroundings.push(0) : node.surroundings.push(grid[i+1][j])
-      j == row.length - 1 ? node.surroundings.push(0) : node.surroundings.push(grid[i][j+1])
-      nodes.push(node)
+  cell_grid = []
+  grid.each do |row|
+    cells = []
+    row.each do |element|
+      cell = Cell.new(element)
+      cells.push(cell)
     end
+    cell_grid.push(cells)
   end
-  nodes
+
+  cell_grid.each_with_index do |cell_row, i|
+    
+    cell_row.each_with_index do |cell, j|
+      i == 0 ? nil : cell.surroundings.push(cell_grid[i-1][j])
+      j == 0 ? nil : cell.surroundings.push(cell_grid[i][j-1])
+      i == cell_grid.size - 1 ? nil : cell.surroundings.push(cell_grid[i+1][j])
+      j == cell_row.size - 1 ? nil : cell.surroundings.push(cell_grid[i][j+1])
+    end
+
+  end
+  cell_grid
 end
 
 # 1. Method to find peaks
-def find_peaks(grid)
+def find_peaks(cell_grid)
   peaks = []
-  grid.each do |node|
-    peaks.push(node.data) if node.surroundings.all? {|neighbor| node.data >= neighbor}
+  cell_grid.each do |cell_row|
+    cell_row.each do |cell|
+      peaks.push(cell) if cell.surroundings.all? {|neighbor| cell.data >= neighbor.data}
+    end
   end
   peaks
 end
 # 2. Method to determine which peak a cell belongs to
-  
+  def set_belongs_to(peaks_arr, cell)
+    return cell if peaks_arr.include?(cell)
+    
+    max_neighbor_data = cell.surroundings.map {|neighbor| neighbor.data}.max
+
+    max_neighbor = nil
+    cell.surroundings.each do |adjacent|
+      max_neighbor = adjacent if adjacent.data == max_neighbor_data
+    end
+    
+    return cell if max_neighbor_data <= cell.data
+    set_belongs_to(peaks_arr, max_neighbor)
+  end
+
 # 3. Method to count cells controlled by each peak
+
+def map_area(cell_grid)
+  peaks = find_peaks(create_graph(cell_grid))
+  create_graph(cell_grid).map do |cell_row|
+    cell_row.map do |cell|
+      set_belongs_to(peaks, cell).data
+    end
+  end
+end
+
+# 4. Method to count cells for each area
+def count_cells(grid_map)
+  areas_hash = {}
+  grid_map.each do |arr|
+    arr.each {|peak| areas_hash[peak].nil? ? areas_hash[peak] = 1 : areas_hash[peak]+=1}
+  end
+  [areas_hash.values.min, areas_hash.values.max].join(" ")
+end
 
 inputs = [
   "9 8 5
@@ -63,10 +105,12 @@ def input_processing(multi_line)
   multi_line.split("\n").map {|nums| nums.split.map {|str| str.to_i}}
 end
 
+# Multiline inputs converted into array of arrays
 grids = inputs.map {|input| input_processing(input)}
 
+def do_stuff(grid)
+  print count_cells(map_area(grid))
+  puts "\n"
+end
 
-# print find_peaks(create_graph(grids[2]))
-# print create_graph(grids[4])[3].surroundings
-# grids.each {|grid| print "#{find_peaks(create_graph(grid))} \n"}
-puts "\n"
+grids.each {|grid| do_stuff(grid)}
