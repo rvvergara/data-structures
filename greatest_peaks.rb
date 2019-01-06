@@ -70,7 +70,7 @@ def map_area(cell_grid)
   end
 end
 
-# 4. Method to count cells for each area
+# 4. Method to count cells for each area - returns only minimum and maximum counts
 def count_cells(grid_map)
   areas_hash = {}
   grid_map.each do |arr|
