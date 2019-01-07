@@ -1,4 +1,4 @@
-# Node class connected to up down left right
+# Cell class connected to up down left right
 class Cell
   attr_reader :data
   attr_accessor :surroundings, :belongs_to
@@ -59,11 +59,11 @@ end
     set_belongs_to(peaks_arr, max_neighbor)
   end
 
-# 3. Method to count cells controlled by each peak
+# 3. Method to map cells controlled by each peak
 
-def map_area(cell_grid)
-  peaks = find_peaks(create_graph(cell_grid))
-  create_graph(cell_grid).map do |cell_row|
+def map_area(grid)
+  peaks = find_peaks(create_graph(grid))
+  create_graph(grid).map do |cell_row|
     cell_row.map do |cell|
       set_belongs_to(peaks, cell).data
     end
