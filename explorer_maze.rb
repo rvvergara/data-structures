@@ -1,3 +1,4 @@
+# Ryan's soln
 # Class cell
 class Cell
   attr_reader :data
@@ -19,8 +20,8 @@ def create_graph(num_grid)
     # Create each cell and include coords
     row.each_with_index do |num,x|
       cell = Cell.new(num)
-      cell.coords.push(x)
-      cell.coords.push(y)
+      cell.coords[0] = x
+      cell.coords[1] = y
       cells.push(cell)
     end
     cell_grid.push(cells)
@@ -29,48 +30,60 @@ def create_graph(num_grid)
   # Put each cell's right and down neighbors
   cell_grid.each_with_index do |cell_row, y|
     cell_row.each_with_index do |cell, x|
-      x != cell_row.length - 1 ? cell.right = cell_grid[x+1][y] : nil
-      y != cell_row.length - 1 ? cell.down =  cell_grid[x][y+1] : nil
+      x != cell_row.length - 1 ? cell.right = cell_grid[y][x+1] : nil
+      y != cell_grid.length - 1 ? cell.down =  cell_grid[y+1][x] : nil
     end
   end
   # return the cell_grid
   cell_grid
 end
 
-# 1. Determine right/left neighbors and coordinates of each cell
-# 2. Have a method for going to the right
-def go_right(maze, cell, queue=[cell], path=[])
-  # should 1 be the cell's right data then run go_down on cell's down
-  shifted = queue.shift
-  if shifted.right.data == 1
-    queue.push(cell.down)
-    path.push(cell.coords)
-    return go_down(maze, cell.down, queue, path)
-  end
-  # should 9 be the cell's data then simply return path after pushing the cell's coords into the path
-  if cell.data == 9
-    path.push(cell.coords)
-    return path
-  end
-  # should cell be the last element in the row, then:
-  if cell.coords[0] == maze.square_size - 1
-    queue.push(cell.down)
-    path.push(cell.coords)
-    return go_down(maze, cell.down, queue, path)  
-  end
-  queue.push(cell.right)
-  path.push(cell.coords)
-  go_right(maze, cell.right, queue, path)
-end
-# 3. Have a method for going down
+# Find goal method
+def find_goal(goal,start,path=[start.coords])
+  return false if start.data == 1
+  return path if start.data == goal
 
+  go_right = start.right.nil? ? false : find_goal(goal, start.right, path + [start.right.coords])
+  go_down = start.down.nil? ? false : find_goal(goal, start.down, path + [start.down.coords])
+  return go_right if go_right
+  go_down
+end
+
+def do_stuff(grid)
+  goal = 9
+  cell_grid = create_graph(grid)
+  result = ""
+  path = find_goal(goal,cell_grid[0][0])
+  path.each {|coord| result +=" #{coord}"}
+  print result
+  puts "\n"
+end
 
 inputs = [
   "0 0 0 0 0
   0 1 0 1 0
   0 1 0 1 1
   0 1 0 0 0
-  0 0 0 1 9"
+  0 0 0 1 9",
+  "0 0 0 0 1 0 0
+  0 0 0 0 1 0 0
+  0 1 1 1 1 1 1
+  0 0 0 0 0 0 9
+  0 1 1 1 1 0 0
+  0 0 0 0 1 0 0
+  0 0 0 0 1 0 0",
+  "0 0 0 
+  0 1 9
+  0 0 0",
+  "0 0 0 0 0 1 0 0 0
+  0 1 0 1 0 1 1 0 1
+  0 1 0 1 0 0 0 0 0
+  1 1 0 1 1 1 0 1 1
+  0 0 0 0 0 1 0 0 1
+  1 1 1 1 0 1 1 1 1
+  0 0 0 0 0 0 0 0 1
+  0 1 1 0 0 1 1 0 9
+  0 0 1 0 0 0 0 0 0"
 ]
 
 # method to parse multiline string into array of arrays
@@ -80,4 +93,4 @@ end
 
 mazes = inputs.map {|input| input_processing(input)}
 
-puts "\n"
+mazes.each {|maze| do_stuff(maze)}
