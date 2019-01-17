@@ -1,3 +1,5 @@
+require 'set'
+# Node class to store numbers for use in finding prime numbers
 class Node
   attr_accessor :data, :marked
   def initialize(data = nil)
@@ -25,9 +27,21 @@ def find_prime(candidates, p = 2)
   find_prime(candidates, p)
 end
 
+def hash_function(ar,mod)
+  num_hash = {}
+  keys_arr = ar.map { |num| num.abs % 11 }
+  output = ""
+  ar.each_with_index { |val, i| num_hash[keys_arr[i]].nil? ? num_hash[keys_arr[i]] = Set.new{val} : num_hash[keys_arr[i]].add(val) }
+  num_hash
+end
+
 def do_stuff(ar)
-  primes = find_prime((2..10000).to_a.map {|integer| Node.new(integer)})
-  puts ar.map {|num| num if primes.include? num}.compact.count
+  non_primes = []
+  max_data = ar.max
+  ar.sort.each {|num| (2..max_data).to_a.each {|div| non_primes.push(num) unless non_primes.include?(num) || num % div != 0 || num == div}}
+  candidates = (ar - non_primes).map {|num| Node.new(num)}
+  min_data = candidates.map {|node| node.data}.min
+  puts candidates.size
 end
 
 str_inputs = [
@@ -43,4 +57,10 @@ str_inputs = [
 
 num_inputs = str_inputs.map {|str| str.split(" ").map {|num| num.to_i}}
 
+node_inputs = str_inputs.map {|str| str.split(" ").sort.map {|num| Node.new(num.to_i)}}
+
 num_inputs.each {|input| do_stuff(input)}
+
+# primes = find_prime((2..(num_inputs[5].max)).map{|num| Node.new(num)})
+# print hash_function(primes, primes.size)
+# puts "\n"
