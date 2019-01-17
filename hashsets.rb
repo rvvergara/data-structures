@@ -38,9 +38,8 @@ end
 def do_stuff(ar)
   non_primes = []
   max_data = ar.max
-  ar.sort.each {|num| (2..max_data).to_a.each {|div| non_primes.push(num) unless non_primes.include?(num) || num % div != 0 || num == div}}
-  candidates = (ar - non_primes).map {|num| Node.new(num)}
-  min_data = candidates.map {|node| node.data}.min
+  ar.each {|num| (2..max_data).to_a.each {|div| non_primes.push(num) unless non_primes.include?(num) || num % div != 0 || num == div}}
+  candidates = (ar - non_primes)
   puts candidates.size
 end
 
@@ -56,8 +55,6 @@ str_inputs = [
 ]
 
 num_inputs = str_inputs.map {|str| str.split(" ").map {|num| num.to_i}}
-
-node_inputs = str_inputs.map {|str| str.split(" ").sort.map {|num| Node.new(num.to_i)}}
 
 num_inputs.each {|input| do_stuff(input)}
 
