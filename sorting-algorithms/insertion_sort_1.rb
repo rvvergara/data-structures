@@ -1,17 +1,21 @@
 def insertion_sort_1(ar)
-  ar_copy = ar.slice(0..-2)+[nil]
-  val = ar.last
-  
-  ar_copy.each_with_index do |num, i|
+  val = ar.pop
+  ar.push(nil)
+  ar.each_with_index do |num, i|
     if num > val
-      last_ind = ar_copy.size - 1
+      last_ind = ar.size - 1
       (i..last_ind).reverse_each do |index|
-        ar_copy[index] = ar_copy[index - 1]
+        ar[index] = ar[index - 1]
       end
-      ar_copy[i] = val
-      return ar_copy
+      ar[i] = val
+      return ar
     end
   end
+end
+
+def do_stuff(ar)
+  print insertion_sort_1(ar)
+  puts "\n"
 end
 
 str_inputs = [
@@ -22,5 +26,5 @@ str_inputs = [
 ]
 
 num_inputs = str_inputs.map {|str| str.split(" ").map {|num| num.to_i}}
-print insertion_sort_1(num_inputs[0])
-puts "\n"
+
+num_inputs.each {|input| do_stuff(input)}
