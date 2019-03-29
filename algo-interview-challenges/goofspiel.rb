@@ -1,5 +1,5 @@
 class Player
-  attr_accessor :hand
+  attr_reader :hand
   def initialize(args)
     @hand = args[:hand]
   end
